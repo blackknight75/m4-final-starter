@@ -6,14 +6,12 @@ describe 'when a guest  visits the root' do
     visit root_path
 
     expect(current_path).to eq(signup_path)
-    expect(page).to have_link('Sign Up')
-    expect(page).to have_link('Login')
+    expect(page).to have_button('Create Account')
+    expect(page).to have_button('Login')
   end
 
   xit 'they fill in user form and create account' do
-    visit '/'
-
-    click_on "Sign Up"
+    visit '/signup'
 
     email = page.find('#user_email')
     email.set("abc@gmail.com")
