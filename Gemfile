@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
@@ -15,7 +14,7 @@ gem 'responders'
 gem 'awesome_print'
 gem 'sprockets-es6'
 gem 'bcrypt', '~> 3.1.7'
-
+gem "validate_url"
 # gem 'unicorn'
 
 # gem 'capistrano-rails', group: :development
