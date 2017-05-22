@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'when a guest  visits the root' do
   it 'they are redirected to signup page if not logged in' do
 
-    visit '/'
+    visit root_path
 
     expect(current_path).to eq(signup_path)
     expect(page).to have_link('Sign Up')

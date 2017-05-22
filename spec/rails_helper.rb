@@ -38,6 +38,7 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Capybara::DSL
+  config.include Rails.application.routes.url_helpers
   #### Database cleaner strategy
   #### Copied from https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
 
