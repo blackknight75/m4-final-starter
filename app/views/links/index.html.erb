@@ -2,3 +2,14 @@
 <div id="logout-button">
   <%= link_to "Logout", '/logout'  %>
 </div>
+<br><br>
+<div id="links-form">
+  <%= form_for @link do |f| %>
+  <%= f.label :title %><br>
+  <%= f.text_field :title %><br>
+  <%= f.label :url %><br>
+  <%= f.text_field :url %><br>
+  <%= f.submit "Create Link" %><br><br><br>
+  <% end %>
+
+</div>
