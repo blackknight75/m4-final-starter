@@ -9,9 +9,9 @@ before_action :authorize
   def create
     link = current_user.links.new(link_params)
     if link.save
-
+      redirect_to links_path
     else
-
+      redirect_to links_path
     end
   end
 
