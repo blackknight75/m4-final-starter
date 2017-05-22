@@ -10,9 +10,10 @@ describe 'when a guest  visits the root' do
     expect(page).to have_button('Login')
   end
 
-  xit 'they fill in user form and create account' do
+  it 'they fill in user form and create account' do
     visit '/signup'
 
+  within('#signup-form') do
     email = page.find('#user_email')
     email.set("abc@gmail.com")
 
@@ -23,31 +24,32 @@ describe 'when a guest  visits the root' do
     password_confirmation.set("abc")
 
     click_on "Create Account"
-
-    expect(current_path).to eq(root_path)
-    expect(page).to_not have_link("Sign Up")
-    expect(page).to have_link("Logout")
-    expect(page).to have_content("Welcome abc@gmail.com")
   end
 
-  xit 'they enter an email that is already registered' do
+    expect(current_path).to eq(links_path)
+    expect(page).to_not have_link("Sign Up")
+    expect(page).to_not have_link("Login")
+    expect(page).to have_link("Logout")
+  end
+
+  it 'they enter an email that is already registered' do
     User.create(email: "abc@gmail.com", password: "abc")
-    visit '/'
+    visit signup_path
 
-    click_on "Sign Up"
+    within('#signup-form') do
+      email = page.find('#user_email')
+      email.set("abc@gmail.com")
 
-    email = page.find('#user_email')
-    email.set("abc@gmail.com")
+      password = page.find('#user_password')
+      password.set("abc")
 
-    password = page.find('#user_password')
-    password.set("abc")
-
-    password_confirmation = page.find('#user_password_confirmation')
-    password_confirmation.set("abc")
+      password_confirmation = page.find('#user_password_confirmation')
+      password_confirmation.set("abc")
+    end
 
     click_on "Create Account"
 
-    expect(current_path).to eq(new_user_path)
+    expect(current_path).to eq(signup_path)
     expect(page).to have_content("Sorry, but that email has already been taken.")
   end
 end
