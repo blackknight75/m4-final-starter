@@ -4,19 +4,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    binding.pry
-    user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
+    user = User.find_by_email(login_params[:email])
+    if user && user.authenticate(login_params[:password])
       session[:user_id] = user.id
       redirect_to links_path, notice: "You have successfully logged in!"
     else
-      redirect_to '/login', alert: "Email or Password is incorrect!"
+      redirect_to signup_path, alert: "Email or Password is incorrect!"
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path
+    redirect_to signup_path
   end
 
   private

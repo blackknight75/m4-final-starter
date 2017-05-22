@@ -21,30 +21,31 @@ describe 'when a registered user visits the root page' do
     expect(current_path).to eq(links_path)
     expect(page).to_not have_link("Register")
     expect(page).to have_link("Logout")
-    expect(page).to have_content("Welcome abc@gmail.com")
+    expect(page).to have_content("You have successfully logged in!")
   end
 
-  xit 'they wrong credentials' do
+  it 'they wrong credentials' do
     User.create(email: "abc@gmail.com", password: "abc")
 
-    visit root_path
+    visit signup_path
 
-    expect(page).to have_link('Login')
-    expect(page).to have_link('Register')
+    expect(page).to have_button('Login')
+    expect(page).to have_button('Create Account')
 
-    click_on('Login')
-    email = page.find('#email')
-    email.set("abc@gmail.com")
+    within('#login-form') do
+      email = page.find('#user_email')
+      email.set("abc@gmail.com")
 
-    password = page.find('#password')
-    password.set("df")
+      password = page.find('#user_password')
+      password.set("df")
 
-    click_on('Login')
+      click_on('Login')
+    end
 
-    expect(current_path).to eq(login_path)
+    expect(current_path).to eq(signup_path)
     expect(page).to have_content("Email or Password is incorrect!")
   end
-  xit 'they can logout' do
+  it 'they can logout' do
     user = User.create(email: "abc@gmail.com", password: "abc")
     allow_any_instance_of(ApplicationController)
                                 .to receive(:current_user)
@@ -56,13 +57,11 @@ describe 'when a registered user visits the root page' do
     expect(page).to_not have_link('Login')
     expect(page).to_not have_link('Register')
 
-    within("#logout-button") do
-      click_on("Logout")
-    end
+    click_on("Logout")
 
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(signup_path)
     expect(page).to_not have_link('Logout')
-    expect(page).to have_link('Login')
-    expect(page).to have_link('Register')
+    expect(page).to have_button('Login')
+    expect(page).to have_button('Create Account')
   end
 end
