@@ -5,14 +5,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    binding.pry
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
-      redirect_to root_path, notice: "You have successfully created an account!"
+      redirect_to links_path, notice: "You have successfully created an account!"
     else
       flash[:alert] = "Sorry, but that email has already been taken."
-      redirect_to new_user_path
+      redirect_to signup_path
     end
   end
 
