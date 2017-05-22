@@ -13,5 +13,12 @@
   <%= f.text_field :url %><br>
   <%= f.submit "Create Link" %><br><br><br>
   <% end %>
+</div>
 
+<div id="links-list">
+  <% @links.each do |link| %>
+    Title: <%= link.title %><br>
+    URL: <%= link.url %><br>
+    Has Been Read: <%= link.read %><br><br>
+  <% end %>
 </div>
