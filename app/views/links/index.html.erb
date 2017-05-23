@@ -2,3 +2,31 @@
 <div id="logout-button">
   <%= link_to "Logout", '/logout'  %>
 </div>
+
+<br><br>
+
+<!-- <form id="links-form">
+  Title:<br>
+  <input type="text" id="title" name="title"><br>
+  Url:<br>
+  <input type="text" id="url" name="url"><br>
+  <input type="submit" id="create-link-button" name="create-link" value="Create Link"><br>
+</form>
+<br><br> -->
+<div id="links-form">
+  <%= form_for @link do |f| %>
+  <%= f.label :title %><br>
+  <%= f.text_field :title %><br>
+  <%= f.label :url %><br>
+  <%= f.text_field :url %><br>
+  <%= f.submit "Create Link", id: "create-link-button" %><br><br><br>
+  <% end %>
+</div>
+
+<div id="links-list">
+  <% @links.each do |link| %>
+    Title: <%= link.title %><br>
+    URL: <%= link_to link.url, link.url %><br>
+    Read: <%= link.read %><br><br>
+  <% end %>
+</div>
