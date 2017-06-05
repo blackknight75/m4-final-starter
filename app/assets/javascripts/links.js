@@ -33,6 +33,32 @@ function markAsRead(data){
       $(`#${link.id}`)[0].childNodes[11].value = "Mark as Unread"
       $(`#${link.id}`)[0].childNodes[11].classList.value = "mark-as-unread"
       $(`#${link.id}`).css("background", "grey");
+      $(`#button${link.id}`).off()
+      $(`#button${link.id}`).click(function() {
+        markAsUnread(this)
+      });
+    },
+    error: function(link) {
+      // alert error
+    },
+  })
+}
+
+function markAsUnread(data){
+  $.ajax({
+    method: "PATCH",
+    url: "/api/v1/links/" + data.attributes.link_id.value,
+    data: {read: false},
+    success: function(link) {
+      var linkElement = $(`#${link.id}`)[0]
+      linkElement.childNodes[5].textContent = "Read: false"
+      $(`#${link.id}`)[0].childNodes[11].value = "Mark as Read"
+      $(`#${link.id}`)[0].childNodes[11].classList.value = "mark-as-read"
+      $(`#${link.id}`).css("background", "white");
+      $(`#button${link.id}`).off()
+      $(`#button${link.id}`).click(function() {
+        markAsRead(this)
+      });
     },
     error: function(link) {
       // alert error
@@ -46,5 +72,8 @@ $(document).ready(function(){
     });
   $('.mark-as-read').click(function() {
     markAsRead(this)
+  });
+  $('.mark-as-unread').click(function() {
+    markAsUnread(this)
   });
 });
