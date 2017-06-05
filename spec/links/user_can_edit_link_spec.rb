@@ -10,6 +10,7 @@ describe "when a user visits the index page" do
 
     visit root_path
 
+    expect(page).to have_link("Edit")
     expect(page).to have_content("IGN")
     expect(page).to have_content("http://ign.com")
 
