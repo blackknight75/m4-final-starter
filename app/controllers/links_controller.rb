@@ -6,6 +6,10 @@ before_action :authorize
     @links = Link.where(["user_id = ?", "#{current_user.id}"])
   end
 
+  def edit
+    @link = Link.find(params[:id])
+  end
+
   def create
     link = current_user.links.new(link_params)
     if link.save

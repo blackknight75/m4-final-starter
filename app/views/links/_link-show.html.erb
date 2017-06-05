@@ -1,0 +1,6 @@
+<div id="<%= link.id %>" class="link-data">
+  Title: <%= link.title %><br>
+  URL: <%= link_to link.url, link.url %><br>
+  Read: <%= link.read %><br>
+  <%= link_to "Edit", edit_link_path(link) %><br>
+</div>

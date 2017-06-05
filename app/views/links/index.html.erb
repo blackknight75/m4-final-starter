@@ -4,14 +4,7 @@
 </div>
 
 <br><br>
-<!-- <form id="links-form">
-  Title:<br>
-  <input type="text" id="title" name="title"><br>
-  Url:<br>
-  <input type="text" id="url" name="url"><br>
-  <input type="submit" id="create-link-button" name="create-link" value="Create Link"><br>
-</form>
-<br><br> -->
+
 <div id="links-form">
   <%= form_for @link do |f| %>
   <%= f.label :title %><br>
@@ -24,8 +17,6 @@
 
 <div id="links-list">
   <% @links.each do |link| %>
-    Title: <%= link.title %><br>
-    URL: <%= link_to link.url, link.url %><br>
-    Read: <%= link.read %><br><br>
+    <%= render partial: 'link-show', locals: {link: link} %>
   <% end %>
 </div>
