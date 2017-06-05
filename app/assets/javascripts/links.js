@@ -66,6 +66,20 @@ function markAsUnread(data){
   })
 }
 
+function showAll(){
+  $(`.link-data`).show()
+}
+
+function filterRead() {
+  $('.link-data').hide()
+  $(`.mark-as-read`).parent().show()
+}
+
+function filterUnread() {
+  $('.link-data').hide()
+  $(`.mark-as-unread`).parent().show()
+}
+
 $(document).ready(function(){
   $('#create-link-button').click(function() {
       submitLink()
@@ -75,5 +89,14 @@ $(document).ready(function(){
   });
   $('.mark-as-unread').click(function() {
     markAsUnread(this)
+  });
+  $('#show-unread').click(function() {
+    filterRead()
+  });
+  $('#show-read').click(function() {
+    filterUnread()
+  });
+  $('#show-all').click(function() {
+    showAll()
   });
 });
