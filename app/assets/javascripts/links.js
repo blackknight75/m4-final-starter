@@ -80,6 +80,21 @@ function filterUnread() {
   $(`.mark-as-unread`).parent().show()
 }
 
+function searchFilter(){
+  $('#filter-name input').on("keyup", function(){
+    $('.link-data').show()
+    var searchInput = ($(this).val()).toLowerCase()
+    var links = $('.link-data')
+    links.each(function(){
+      var linkTitle = ($(this).children()[0].innerText).toLowerCase()
+      var matches = linkTitle.includes(searchInput)
+      if(!matches) {
+        $(this).hide();
+      }
+    })
+  })
+}
+
 $(document).ready(function(){
   $('#create-link-button').click(function() {
       submitLink()
@@ -99,4 +114,5 @@ $(document).ready(function(){
   $('#show-all').click(function() {
     showAll()
   });
+  searchFilter()
 });

@@ -4,7 +4,6 @@
 </div>
 
 <br><br>
-
 <form id="links-form">
   <input type="hidden" name="user_id" value="<%= current_user.id  %>" id="user-id"><br>
   <input type="hidden" name="read" value=false id="link-read"><br>
@@ -14,6 +13,12 @@
 </form>
 
 <br><br>
+
+<div id="filter-name">
+  Filter by Name: <input>
+</div>
+
+<br>
 
 <div class="filters">
   <input type="button" value="Show Unread" id="show-unread">
