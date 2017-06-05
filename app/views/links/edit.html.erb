@@ -1,0 +1,8 @@
+<h2>Edit Link</h2>
+<%= form_for @link do |f| %>
+<%= f.label :title %><br>
+<%= f.text_field :title %><br>
+<%= f.label :url %><br>
+<%= f.text_field :url %><br>
+<%= f.submit "Edit Link", id: "edit-link-button" %><br><br><br>
+<% end %>

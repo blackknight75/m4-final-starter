@@ -10,6 +10,21 @@ before_action :authorize
     @link = Link.find(params[:id])
   end
 
+  def update
+    @link = Link.find(params[:id])
+    if @link.update(link_params)
+      flash[:success] = "You successfully updated your link."
+      redirect_to links_path
+    else
+      if @link.title == ""
+        flash.now[:alert] = "Sorry, TITLE cannot be blank."
+      else
+        flash.now[:alert] = "Sorry, that is not a valid URL."
+      end
+      render :edit
+    end
+  end
+
   def create
     link = current_user.links.new(link_params)
     if link.save
