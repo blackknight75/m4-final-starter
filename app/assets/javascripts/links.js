@@ -22,8 +22,29 @@ function submitLink(){
   })
 }
 
+function markAsRead(data){
+  $.ajax({
+    method: "PATCH",
+    url: "/api/v1/links/" + data.attributes.link_id.value,
+    data: {read: true},
+    success: function(link) {
+      var linkElement = $(`#${link.id}`)[0]
+      linkElement.childNodes[5].textContent = "Read: true"
+      $(`#${link.id}`)[0].childNodes[11].value = "Mark as Unread"
+      $(`#${link.id}`)[0].childNodes[11].classList.value = "mark-as-unread"
+      $(`#${link.id}`).css("background", "grey");
+    },
+    error: function(link) {
+      // alert error
+    },
+  })
+}
+
 $(document).ready(function(){
   $('#create-link-button').click(function() {
       submitLink()
     });
+  $('.mark-as-read').click(function() {
+    markAsRead(this)
+  });
 });
