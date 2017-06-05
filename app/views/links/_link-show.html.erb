@@ -3,4 +3,10 @@
   URL: <%= link_to link.url, link.url %><br>
   Read: <%= link.read %><br>
   <%= link_to "Edit", edit_link_path(link) %><br>
+
+  <% if link.read == false %>
+    <input type="button" link_id="<%= link.id %>" value="Mark as Read" class="mark-as-read" id="button<%= link.id %>"><br><br>
+  <% else %>
+    <input type="button" link_id="<%= link.id %>" value="Mark as Unread" class="mark-as-unread" id="button<%= link.id %>"><br><br>
+  <% end %>
 </div>

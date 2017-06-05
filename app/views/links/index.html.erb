@@ -5,15 +5,15 @@
 
 <br><br>
 
-<div id="links-form">
-  <%= form_for @link do |f| %>
-  <%= f.label :title %><br>
-  <%= f.text_field :title %><br>
-  <%= f.label :url %><br>
-  <%= f.text_field :url %><br>
-  <%= f.submit "Create Link", id: "create-link-button" %><br><br><br>
-  <% end %>
-</div>
+<form id="links-form">
+  <input type="hidden" name="user_id" value="<%= current_user.id  %>" id="user-id"><br>
+  <input type="hidden" name="read" value=false id="link-read"><br>
+  Title: <input type="text" name="title" id="link-title"><br>
+  URL: <input type="text" name="url" id="link-url"><br><br>
+  <input type="button" value="Create Link" id="create-link-button">
+</form>
+
+<br><br>
 
 <div id="links-list">
   <% @links.each do |link| %>
