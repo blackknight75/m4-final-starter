@@ -11570,7 +11570,7 @@ function submitLink(){
   var linkData  = {user_id: user_id, title: title, url: url, read: read}
   $.ajax({
     method: "POST",
-    url: "/api/v1/links",
+    url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links",
     data: linkData,
     success: function(link) {
       $("#links-list").prepend(link)
@@ -11589,7 +11589,7 @@ function submitLink(){
 function markAsRead(data){
   $.ajax({
     method: "PATCH",
-    url: "/api/v1/links/" + data.attributes.link_id.value,
+    url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
     data: {read: true},
     success: function(link) {
       var linkElement = $(`#${link.id}`)[0]
@@ -11601,6 +11601,7 @@ function markAsRead(data){
       $(`#button${link.id}`).click(function() {
         markAsUnread(this)
       });
+      sendToHotReads(link)
     },
     error: function(link) {
       // alert error
@@ -11608,10 +11609,19 @@ function markAsRead(data){
   })
 }
 
+function sendToHotReads(link){
+  var linkUrl = link.url
+  $.ajax({
+    method: "POST",
+    url: "https://boiling-woodland-88175.herokuapp.com/links",
+    data: {url: linkUrl}
+  })
+}
+
 function markAsUnread(data){
   $.ajax({
     method: "PATCH",
-    url: "/api/v1/links/" + data.attributes.link_id.value,
+    url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
     data: {read: false},
     success: function(link) {
       var linkElement = $(`#${link.id}`)[0]
@@ -11644,6 +11654,21 @@ function filterUnread() {
   $(`.mark-as-unread`).parent().show()
 }
 
+function searchFilter(){
+  $('#filter-name input').on("keyup", function(){
+    $('.link-data').show()
+    var searchInput = ($(this).val()).toLowerCase()
+    var links = $('.link-data')
+    links.each(function(){
+      var linkTitle = ($(this).children()[0].innerText).toLowerCase()
+      var matches = linkTitle.includes(searchInput)
+      if(!matches) {
+        $(this).hide();
+      }
+    })
+  })
+}
+
 $(document).ready(function(){
   $('#create-link-button').click(function() {
       submitLink()
@@ -11663,6 +11688,7 @@ $(document).ready(function(){
   $('#show-all').click(function() {
     showAll()
   });
+  searchFilter()
 });
 "use strict";
 
