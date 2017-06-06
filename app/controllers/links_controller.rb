@@ -3,7 +3,7 @@ before_action :authorize
 
   def index
     @link = Link.new
-    @links = Link.where(["user_id = ?", "#{current_user.id}"])
+    @links = ((current_user.links).sort_by {|link| link.created_at}).reverse
   end
 
   def edit
