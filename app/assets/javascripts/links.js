@@ -6,7 +6,8 @@ function submitLink(){
   var linkData  = {user_id: user_id, title: title, url: url, read: read}
   $.ajax({
     method: "POST",
-    url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links",
+    // url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links",
+    url: "/api/v1/links",
     data: linkData,
     success: function(link) {
       $("#links-list").prepend(link)
@@ -25,7 +26,8 @@ function submitLink(){
 function markAsRead(data){
   $.ajax({
     method: "PATCH",
-    url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
+    // url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
+    url: "/api/v1/links/" + data.attributes.link_id.value,
     data: {read: true},
     success: function(link) {
       var linkElement = $(`#${link.id}`)[0]
@@ -49,7 +51,8 @@ function sendToHotReads(link){
   var linkUrl = link.url
   $.ajax({
     method: "POST",
-    url: "https://boiling-woodland-88175.herokuapp.com/links",
+    // url: "https://boiling-woodland-88175.herokuapp.com/links",
+    url: "http://localhost:2000/links",
     data: {url: linkUrl}
   })
 }
@@ -57,7 +60,8 @@ function sendToHotReads(link){
 function markAsUnread(data){
   $.ajax({
     method: "PATCH",
-    url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
+    // url: "https://thawing-wildwood-17227.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
+    url: "/api/v1/links/" + data.attributes.link_id.value,
     data: {read: false},
     success: function(link) {
       var linkElement = $(`#${link.id}`)[0]
