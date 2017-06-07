@@ -1,27 +1,118 @@
-# URLockBox
+# URL Lockbox
 
-## Final Assessment
+> This is an awesome app for keeping tack of all the links that you like. You can keep track of which ones you have and have not read. There is also a companion app that you can use in conjunction with this app to see the top 10 hottest links by view. When you mark a url as read it will add to the view count on the Hot Reads app.
 
-The URLockbox is a starter app for the final assessment for module 4 of the backend engineering program at Turing School of Software and Design.
+#### Production Links
 
-Be sure to get familiar with what is already done, and what is not. No features are complete, but there is some set up done for several features. Use commit history if that helps.
+[Production App](https://thawing-wildwood-17227.herokuapp.com/)
 
-### Testing your JS with Selenium
+[Hot Reads(Companion App)](https://boiling-woodland-88175.herokuapp.com/)
 
-The app has the `selenium-webdriver` gem listed in the `Gemfile` and setup in the `rails_helper.rb`
+## Setting up the App
 
-#### Setup
+#### Clone the repo
 
-Everything will be installed with Bundle.
+``` $ git clone https://github.com/blackknight75/m4-final-starter ```
 
-You will need to download version 46 of Firefox [here](https://www.softexia.com/windows/web-browsers/firefox-46). If you do have it, make sure it is on version 46. Selenium does not work with all versions of Firefox, so make sure that you are using Firefox 46 or else it will potentially cause you problems.
+#### Run
 
-If you already have Firefox and it's on a version more recent than 46, the easiest way to downgrade is to uninstall Firefox then install version 46.
+``` $ bundle intall ```
 
-#### Use
+``` $ rake db:create db:migrate ```
 
-You can then write capybara feature tests and add `js: true` tag if you'd like your test to use the Selenium WebDriver rather than the default WebDriver.  Your tests will execute and recognize your JavaScript.
+#### If running locally
 
-If you're having problems troubleshooting asynchronous actions (like DOM changes after an AJAX request), [peruse this section of Capybara's docs](https://github.com/teamcapybara/capybara#asynchronous-javascript-ajax-and-friends)
+Make sure that you change the URLs in the links.js to your localhost:port#
 
-It is highly suggested that you also check out the Capybara docs and and the section on [selenium-webdriver](https://github.com/teamcapybara/capybara#selenium).
+###### links.js
+``` function markAsUnread(data){
+  $.ajax({
+    method: "PATCH",
+    url: "http://localhost:3000/api/v1/links/" + data.attributes.link_id.value,
+    data: {read: false},
+    success: function(link) {
+      var linkElement = $(`#${link.id}`)[0]
+      linkElement.childNodes[5].textContent = "Read: false"
+      $(`#${link.id}`)[0].childNodes[11].value = "Mark as Read"
+      $(`#${link.id}`)[0].childNodes[11].classList.value = "mark-as-read"
+      $(`#${link.id}`).css("background", "white");
+      $(`#button${link.id}`).off()
+      $(`#button${link.id}`).click(function() {
+        markAsRead(this)
+      });
+    },
+    error: function(link) {
+      // alert error
+    },
+  })
+}
+```
+After you have setup your URLs you can launch your rails server locally to view the app and continue to develop.
+
+#### Launch Server
+
+``` $ rails s ```
+
+#### Launch Console
+
+``` $ rails c ```
+
+## Running Tests
+
+#### Run
+
+``` $ rspec ```
+
+## Deploy to Heroku
+
+* Make sure to switch your URLs in the links.js to your Heroku url.
+
+###### links.js
+``` function markAsUnread(data){
+  $.ajax({
+    method: "PATCH",
+    url: "https://herokup-app-name.herokuapp.com/api/v1/links/" + data.attributes.link_id.value,
+    data: {read: false},
+    success: function(link) {
+      var linkElement = $(`#${link.id}`)[0]
+      linkElement.childNodes[5].textContent = "Read: false"
+      $(`#${link.id}`)[0].childNodes[11].value = "Mark as Read"
+      $(`#${link.id}`)[0].childNodes[11].classList.value = "mark-as-read"
+      $(`#${link.id}`).css("background", "white");
+      $(`#button${link.id}`).off()
+      $(`#button${link.id}`).click(function() {
+        markAsRead(this)
+      });
+    },
+    error: function(link) {
+      // alert error
+    },
+  })
+}
+```
+
+* Make sure you precompile your JavaScript before you push to your repository and to Heroku
+
+#### Remover Old Minified Files First
+
+``` $ rake assets:clobber ```
+
+#### Precopile JavaScript for Production
+
+``` $ rake assets:precopile ```
+
+#### Push to Your Repo
+
+``` $ git add . ```
+
+``` $ git commit -m "Your commit message" ```
+
+``` $ git push origin branch-name ```
+
+#### Push to Heroku from Your Repo Master
+
+``` $ git push heroku master ```
+
+#### Push to Heroku from a Branch on Your Repo
+
+``` $ git push heroku branch-name:master ```
