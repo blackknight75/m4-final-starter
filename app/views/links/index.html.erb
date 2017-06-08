@@ -30,6 +30,6 @@
 
 <div id="links-list">
   <% @links.each do |link| %>
-    <%= render partial: 'link-show', locals: {link: link} %>
+    <%= render partial: 'link-show', locals: {link: link, hots: @hots} %>
   <% end %>
 </div>

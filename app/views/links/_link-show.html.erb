@@ -1,4 +1,9 @@
 <div id="<%= link.id %>" class="link-data">
+  <% if  @hots.include?(link.url) && link.url == @hots[0] %>
+    <h5 style="color:red">Top Link</h5>
+  <% elsif @hots.include?(link.url)%>
+    <h5 style="color:orange">HOT</h5>
+  <% end %>
   <h4><%= link.title %></h4>
   URL: <%= link_to link.url, link.url %><br>
   Read: <%= link.read %><br>
