@@ -4,6 +4,7 @@ before_action :authorize
   def index
     @link = Link.new
     @links = ((current_user.links).sort_by {|link| link.created_at}).reverse
+    @hots = Link.get_hot
   end
 
   def edit

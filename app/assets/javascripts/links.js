@@ -11,7 +11,10 @@ function submitLink(){
     data: linkData,
     success: function(link) {
       $("#links-list").prepend(link)
-        alert(`You have successfully added ${title} to your links`)
+      alert(`You have successfully added ${title} to your links`)
+      $(`#button${link.id}`).click(function() {
+        markAsRead(this)
+      });
     },
     error: function(link) {
       if($("#link-title").val() == ""){
