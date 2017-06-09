@@ -12,7 +12,7 @@ function submitLink(){
     success: function(link) {
       $("#links-list").prepend(link)
       alert(`You have successfully added ${title} to your links`)
-      $(`#button${link.id}`).click(function() {
+      $(`#button${$(link)[0].id}`).click(function() {
         markAsRead(this)
       });
     },
